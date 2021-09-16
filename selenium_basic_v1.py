@@ -13,7 +13,7 @@ from googlesearch import search
 
 
 # List of recognized websites to extract answer from. Toppr.com has been removed due to cloudflare protection
-sitelist = ['brainly.in', 'sarthaks.com', 'tardigrade', 'topperlearning.com', 'vedantu.com', 'askiitians.com', 'doubtnut.com']
+sitelist = ['brainly.in', 'sarthaks.com', 'tardigrade', 'topperlearning.com', 'askiitians.com', 'doubtnut.com']
 
 
 class browser_handle:
@@ -24,9 +24,12 @@ class browser_handle:
         
         self.qlist = qlist
         self.url_dct = {}
+        self.qnum = 1
         for q in qlist:
-            key, value = browser_handle.get_answer_url(q, open_direct=open_direct)  # ALWAYS FALLBACK SET TO TRUE UNTIL GOOGLE MODULE CAN WORK WITHOUT HTTP 429 ERROR
+            print(f'Getting url for q {self.qnum}')
+            key, value = browser_handle.get_answer_url(q, open_direct=open_direct)
             self.url_dct[key] = value
+            self.qnum += 1
 
     
     @staticmethod
@@ -47,7 +50,7 @@ class browser_handle:
         """       
         matches = []
         if open_direct:
-            time.sleep(3)
+            time.sleep(0.1)
             for result_url in search(question, num=10, pause=2.0, stop=10):
                 for site in sitelist:  # Go through list of recognized websites and append them to matches if any of search result urls match
                     if result_url.find(site) != -1:  # If match is found anywhere in string
@@ -73,6 +76,7 @@ class browser_handle:
 
         window_number = 1  # Keep track of which window to have focus on
         for key in self.url_dct.keys():
+            print(f'Opening tab for q number {window_number}')
             driver.get(self.url_dct[key][0])  # Open the answer url in the tab
             driver.execute_script("window.open('');")
             driver.switch_to.window(driver.window_handles[window_number]) # Switch focus to latest window
