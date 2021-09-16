@@ -18,9 +18,6 @@ import json
 import extractor
 import selenium_basic_v1
 
-# TODO: Use chromedriver autoinstaller
-# TODO: Use temp GUI for path selection
-
 
 VERSION = 0.2
 STATE = 'Alpha'
@@ -99,6 +96,9 @@ class Interface:
         inp = input(f'What value to set it to? {selection} is currently set to [{current_settings[selection]}] (Enter q to cancel) \n> ')
         if inp.upper() == 'Q':
             self.main_screen()
+        
+        if inp.upper() in ['TRUE', 'FALSE']:
+            inp = bool(inp)
 
         self.fhandler.change_settings(selection, inp)
 
@@ -162,7 +162,7 @@ class Interface:
         qlist = ext.extract_questions()
 
         # Open the browser tabs
-        hdl = selenium_basic_v1.browser_handle(qlist)
+        hdl = selenium_basic_v1.browser_handle(qlist, open_direct=settings['open_direct_links'])
         hdl.open_tabs()
 
         
