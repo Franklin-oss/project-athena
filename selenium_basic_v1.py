@@ -72,7 +72,6 @@ class browser_handle:
 
         window_number = 1  # Keep track of which window to have focus on
         for key in self.url_dct.keys():
-            time.sleep(1)
             driver.get(self.url_dct[key][0])  # Open the answer url in the tab
             driver.execute_script("window.open('');")
             driver.switch_to.window(driver.window_handles[window_number]) # Switch focus to latest window
@@ -84,6 +83,6 @@ if __name__ == '__main__':
         """
         Basic test with a question list of 2 basic questions.
         """
-        browser_handle(['What is the time', 'Where am I'], chromedriver_path='wadwad').open_tabs()
+        browser_handle(['What is the time', 'Where am I']).open_tabs()
 
     test()
