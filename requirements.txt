@@ -1,0 +1,7 @@
+beautifulsoup4==4.10.0
+google==3.0.0
+pdftotext==2.2.0
+selenium==3.141.0
+simple-term-menu==1.4.1
+soupsieve==2.2.1
+urllib3==1.26.6
