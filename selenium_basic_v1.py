@@ -12,7 +12,8 @@ from selenium import webdriver
 from googlesearch import search
 
 
-sitelist = ['brainly.in', 'sarthaks.com', 'doubtnut.com']  # List of recognized websites to extract answer from. Toppr.com has been removed due to cloudflare protection
+# List of recognized websites to extract answer from. Toppr.com has been removed due to cloudflare protection
+sitelist = ['brainly.in', 'sarthaks.com', 'tardigrade', 'topperlearning.com', 'vedantu.com', 'askiitians.com', 'doubtnut.com']
 
 
 class browser_handle:
@@ -84,6 +85,6 @@ if __name__ == '__main__':
         """
         Basic test with a question list of 2 basic questions.
         """
-        browser_handle(['What is the time', 'Where am I'], chromedriver_path='wadwad').open_tabs()
+        browser_handle(['What is the time', 'Where am I']).open_tabs()
 
     test()
