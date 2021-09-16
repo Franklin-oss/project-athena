@@ -14,6 +14,7 @@ import time
 import getpass
 import platform
 from simple_term_menu import TerminalMenu
+import enquiries
 import json
 import extractor
 import selenium_basic_v1
@@ -49,8 +50,9 @@ class Interface:
 
         def main_menu():
             options = ['[1] Start Solving', '[2] How to use', '[3] Set pdf file','[4] Settings', '[5] Exit']
-            main_menu = TerminalMenu(options)
-            inp = main_menu.show()  # Show the menu and fetch input
+            # main_menu = TerminalMenu(options)
+            inp = enquiries.choose(self.main_menu_title, options)
+            # inp = main_menu.show()  # Show the menu and fetch input
 
             return inp
 
@@ -88,10 +90,7 @@ class Interface:
         current_settings = self.fhandler.read_settings()  # Read current settings
         
         options = list(self.fhandler.default_settings.keys())  # List all available settings in options
-        settings_menu = TerminalMenu(options)
-
-        selection_idx = settings_menu.show()  # Show menu
-        selection = options[selection_idx]
+        selection = enquiries.choose('Settings \n --------------', options)
 
         inp = input(f'What value to set it to? {selection} is currently set to [{current_settings[selection]}] (Enter q to cancel) \n> ')
         if inp.upper() == 'Q':
