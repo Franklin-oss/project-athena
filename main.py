@@ -51,7 +51,7 @@ class Interface:
         self.clear()
 
         def main_menu():
-            options = ['[1] Start Solving', '[2] How to use', '[3] Set paths','[4] Settings', '[5] Exit']
+            options = ['[1] Start Solving', '[2] How to use', '[3] Set pdf file','[4] Settings', '[5] Exit']
             main_menu = TerminalMenu(options)
             inp = main_menu.show()  # Show the menu and fetch input
 
@@ -67,6 +67,7 @@ class Interface:
 
         elif inp + 1 == 3:
             self.set_paths_UI()
+            self.main_screen()
 
         elif inp + 1 == 4:
             self.settings_ui()
@@ -116,35 +117,29 @@ class Interface:
 
         settings = self.fhandler.read_settings()
         pdfpath = settings['pdf_file_path']
-        driverpath = settings['chromedriver_path']
 
-        if not os.path.isfile(pdfpath):  # Check if path is valid
-            print(f""" 
-            File path [{pdfpath}] for the input pdf file is either not set or is invalid
+        print(f'File path is currently set to: {pdfpath}')
+        print('Select pdf file for workbook:')
 
-            On Windows, find the file whose path you’d like to copy in File Explorer.
-            Hold down Shift on your keyboard and right-click on it. In the context menu
-            that pops up,select “Copy As Path.”
+        from tkinter import Tk     # from tkinter import Tk for Python 3.x
+        from tkinter.filedialog import askopenfilename
 
-            On Linux, I figured if you are using linux, you probably know how to get the
-            full path of a file.If you have no idea what file you are looking for, consult
-            the How to use section in main menu.
-                                """)
+        Tk().withdraw()  # don't want a full GUI, so keep the root window from appearing
+        filepath = askopenfilename()  # show an "Open" dialog box and return the path to the selected file
 
-            inp = input('Enter path to pdf file / enter "q" to go back to main menu: ')
-            if inp.upper() == 'Q':
-                self.main_screen()
-            
-            else:
-                self.fhandler.change_settings('pdf_file_path', inp)  # Change pdf_file_path setting to entered value
-                self.set_paths_UI()  # Recall the function
+        if filepath == []:  # If file path is empty restart func
+            self.set_paths_UI()
+
+        self.fhandler.change_settings('pdf_file_path', filepath)
+
 
 
     def solve_ui(self):
-        self.set_paths_UI() 
         self.clear()
 
-        settings = self.fhandler.read_settings()
+        settings = self.fhandler.read_settings() 
+        if settings['pdf_file_path'] == [] or not os.path.isfile(settings['pdf_file_path']):  # becomes [] when blank idk why
+            self.set_paths_UI()
 
         print(f"""
         Input pdf file is currently: {settings['pdf_file_path']}
@@ -154,7 +149,7 @@ class Interface:
         inp = input('> ').upper()
         if inp != 'Y':  # Go back to main screen if not Y
             self.main_screen()
-        
+    
         start_pg = int(input("Enter start page (at which page in the pdf the chapter starts): \n"))
         end_pg = int(input("Enter end page (last page of the chapter you want to solve): \n"))
         
