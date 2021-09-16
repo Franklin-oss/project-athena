@@ -7,6 +7,7 @@ Note: This is meant to be a temporary fix to be a placeholder until the module f
 """
 # Imports
 import time
+import chromedriver_autoinstaller
 from selenium import webdriver
 from googlesearch import search
 
@@ -18,9 +19,8 @@ class browser_handle:
     """Object to take in list of questions and open browser pages for them.
        TODO: Make it capable of scraping answers from websites.
     """
-    def __init__(self, qlist, chromedriver_path: str, open_direct=False):
+    def __init__(self, qlist, open_direct=False):
         
-        self.chromedriver_path = chromedriver_path
         self.qlist = qlist
         self.url_dct = {}
         for q in qlist:
@@ -61,12 +61,14 @@ class browser_handle:
         """
         Opens browser tabs for a given dictionary of urls. Placeholder for until scraping module is built (in later versions).
         """
+        chromedriver_autoinstaller.install()  # Install chromedriver if it is not installed 
 
         assert len(self.url_dct) != 0, 'url_dct is empty. Try running for loop'  # Make sure url_dct has inside it
         
         options = webdriver.ChromeOptions()  # Initialize options object
         options.add_experimental_option("detach", True)  # Option to make sure browser window stays open after script has run
-        driver = webdriver.Chrome(executable_path=self.chromedriver_path, options=options)  # Initialize driver
+        # driver = webdriver.Chrome(executable_path=self.chromedriver_path, options=options)  # Initialize driver
+        driver = webdriver.Chrome(options=options)  # Initialize driver
 
         window_number = 1  # Keep track of which window to have focus on
         for key in self.url_dct.keys():
@@ -82,6 +84,6 @@ if __name__ == '__main__':
         """
         Basic test with a question list of 2 basic questions.
         """
-        browser_handle(['What is the time', 'Where am I']).open_tabs()
+        browser_handle(['What is the time', 'Where am I'], chromedriver_path='wadwad').open_tabs()
 
     test()

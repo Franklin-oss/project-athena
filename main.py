@@ -139,27 +139,6 @@ class Interface:
                 self.fhandler.change_settings('pdf_file_path', inp)  # Change pdf_file_path setting to entered value
                 self.set_paths_UI()  # Recall the function
 
-        if not os.path.isfile(driverpath):  # Check if path is valid
-            print(f""" 
-            File path [{driverpath}] for the chromedriver file is either not set or is invalid
-
-            On Windows, find the file whose path you’d like to copy in File Explorer.
-            Hold down Shift on your keyboard and right-click on it. In the context menu
-            that pops up,select “Copy As Path.”
-
-            On Linux, I figured if you are using linux, you probably know how to get the
-            full path of a file.If you have no idea what file you are looking for, consult
-            the How to use section in main menu.
-                                """)
-
-            inp = input('Enter path to file / enter "q" to go back to main menu: ')
-            if inp.upper() == 'Q':
-                self.main_screen()
-            
-            else:
-                self.fhandler.change_settings('chromedriver_path', inp)  # Change pdf_file_path setting to entered value
-                self.set_paths_UI()  # Recall the function
-
 
     def solve_ui(self):
         self.set_paths_UI() 
@@ -169,8 +148,6 @@ class Interface:
 
         print(f"""
         Input pdf file is currently: {settings['pdf_file_path']}
-        Chromedriver path is       : {settings['chromedriver_path']} 
-
         Start solving? (Y/n). M to go back to main menu. Ctrl + C to quit \n
         """)
         
@@ -190,7 +167,7 @@ class Interface:
         qlist = ext.extract_questions()
 
         # Open the browser tabs
-        hdl = selenium_basic_v1.browser_handle(qlist, settings['chromedriver_path'])
+        hdl = selenium_basic_v1.browser_handle(qlist)
         hdl.open_tabs()
 
         
@@ -216,7 +193,6 @@ class file_handler:
 
         self.default_settings = {
             'pdf_file_path': 'not set',
-            'chromedriver_path': 'not set',
             'open_direct_links': False,
         }
 
@@ -288,7 +264,7 @@ def test_filesystem():
     fhandler = file_handler()
     fhandler.generate_settings_file()
     print(fhandler.read_settings())
-    fhandler.change_settings('chromedriver_path', 'Test val')
+    fhandler.change_settings('pdf_file_path', 'Test val')
     print(fhandler.read_settings())
 
 if __name__ == '__main__':
