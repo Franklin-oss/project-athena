@@ -13,15 +13,15 @@ import os
 import time
 import getpass
 import platform
-from simple_term_menu import TerminalMenu
+# from simple_term_menu import TerminalMenu
 import enquiries
 import json
 import extractor
 import selenium_basic_v1
 
 
-VERSION = 0.2
-STATE = 'Alpha'
+VERSION = 0.5
+STATE = 'Beta'
 
 
 class Interface:
@@ -29,7 +29,7 @@ class Interface:
         """
         Initialize interface object
         """
-        self.main_menu_title = f"""Project Athena v{VERSION}- {STATE}. Built by LaFrnksta356
+        self.main_menu_title = f"""Project Athena v{VERSION} - {STATE}. Built by LaFrnksta356
 -----------------------------------------------------\n"""
 
         # Set command to clear terminal depending on which OS the program is running on
@@ -192,7 +192,7 @@ class file_handler:
 
         self.default_settings = {
             'pdf_file_path': 'not set',
-            'open_direct_links': False,
+            'open_direct_links': True,
         }
 
         self.settings_path = self.appdata_path + 'settings.json'

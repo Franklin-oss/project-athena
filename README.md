@@ -11,7 +11,23 @@ will open up tabs in your browser that almost certainly has the answer in it.
 3. Run the program by running the aptly named `run.bat`
 
 #### For Linux:
-1. Make sure python3 is installed (It usually is by default on linux distros)
+1. Make sure python3 is installed *(It usually is by default on linux distros)*
 2. Clone the repository by running `git clone https://github.com/Franklin-oss/project-athena` in terminal
 3. CD into the directory and run the install file with by running `cd project-athena && chmod +x linux_install.sh && ./linux_install.sh`
 4. Run the program by running `python3 main.py`
+
+## How to use:
+1. Download the workbook pdf (available at brilliant pala elearn page -> Documents -> Study Materiails)
+2. Install the program and run it
+3. Select Start Solving
+4. If it is the first time running the program, it will ask you to set pdf file. Select the workbook file you just downloaded in the gui.
+5. Enter the start page no and end page no for the chapter you want to solve. (For eg for chapter friction in module 1 of the workbook, start page is 75 and end page is 92)
+6. Press enter when it prompts to and then leave it to do its thing. Do NOT close the browser window that opens up
+7. It can take some time to run because it is googling upto 75 questions. Its best if you don't do anything the pc while it is running (I know its annoying im working on fixing it)
+8. After its done running, there will be a window of chrome tabs with the answers opened up for the questions in order :) You can now go switching tabs from the beginning and 
+   write down the answers real fast.
+
+## Disclaimer
+Please do not use this as a substitute for studying because it is extremely unlikely that this program will be there to assist you when exam day finally comes.
+Use this program responsibly
+
