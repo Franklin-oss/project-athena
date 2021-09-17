@@ -29,7 +29,8 @@ class Interface:
         """
         Initialize interface object
         """
-        self.main_menu_title = f"Project Athena v{VERSION}- {STATE}. Built by LaFrnksta356"
+        self.main_menu_title = f"""Project Athena v{VERSION}- {STATE}. Built by LaFrnksta356
+-----------------------------------------------------\n"""
 
         # Set command to clear terminal depending on which OS the program is running on
         if platform.system() == 'Windows':
@@ -58,20 +59,20 @@ class Interface:
 
         inp = main_menu()
 
-        if inp + 1 == 1:  
+        if inp == '[1] Start Solving':  
             self.solve_ui() # Start solve UI + warnings
         
-        elif inp + 1 == 2:
+        elif inp == '[2] How to use':
             self.how_to_use_ui()
 
-        elif inp + 1 == 3:
+        elif inp == '[3] Set pdf file':
             self.set_paths_UI()
             self.main_screen()
 
-        elif inp + 1 == 4:
+        elif inp == '[4] Settings':
             self.settings_ui()
         
-        elif inp + 1 == 5:
+        elif inp == '[5] Exit':
             exit()
 
     
@@ -90,7 +91,11 @@ class Interface:
         current_settings = self.fhandler.read_settings()  # Read current settings
         
         options = list(self.fhandler.default_settings.keys())  # List all available settings in options
-        selection = enquiries.choose('Settings \n --------------', options)
+        options.append('exit')
+        selection = enquiries.choose('Settings\n------------\n', options)
+        
+        if selection == 'exit':
+            self.main_screen()
 
         inp = input(f'What value to set it to? {selection} is currently set to [{current_settings[selection]}] (Enter q to cancel) \n> ')
         if inp.upper() == 'Q':
