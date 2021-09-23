@@ -13,7 +13,7 @@ from googlesearch import search
 
 
 # List of recognized websites to extract answer from. Toppr.com has been removed due to cloudflare protection
-sitelist = ['brainly.in', 'sarthaks.com', 'tardigrade', 'topperlearning.com', 'askiitians.com', 'doubtnut.com']
+sitelist = ['brainly.in', 'sarthaks.com', 'tardigrade', 'askiitians.com', 'doubtnut.com']
 
 
 class browser_handle:
