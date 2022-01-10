@@ -43,7 +43,7 @@ class Extractor:
 
         # Iterate through every page in range and add their raw text to pages string
         pages = ''
-        for page in range(self.pg_range[0], self.pg_range[1] + 1):  # + 1 cuz range does not include the ending number
+        for page in range(self.pg_range[0] - 1, self.pg_range[1] + 1):  # + 1 cuz range does not include the ending number
             pages += (pdf[page] + ' \n\n\n' )  # Add \n so pages don't stick together with no separation (important for regex model)
         
         return pages
